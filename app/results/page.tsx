@@ -9,6 +9,7 @@ import {
   CheckCircle2,
   CircleDollarSign,
   LineChart,
+  Loader2,
   ShieldAlert,
   Target,
 } from "lucide-react";
@@ -16,7 +17,13 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { buildAuditSnapshot, defaultAuditRequest, formatCurrency, readAuditRequest } from "@/lib/audit-flow";
+import {
+  buildAuditSnapshot,
+  defaultAuditRequest,
+  formatCurrency,
+  hasAuditRequestContext,
+  readAuditRequest,
+} from "@/lib/audit-flow";
 
 const SpendBreakdownChart = dynamic(
   () => import("@/components/results/spend-breakdown-chart").then((module) => module.SpendBreakdownChart),
@@ -27,14 +34,39 @@ const SpendBreakdownChart = dynamic(
 );
 
 export default function ResultsPage() {
+  const [isReady, setIsReady] = useState(false);
   const [request, setRequest] = useState(defaultAuditRequest);
   const [snapshot, setSnapshot] = useState(() => buildAuditSnapshot(defaultAuditRequest));
 
   useEffect(() => {
     const nextRequest = readAuditRequest();
+    if (!hasAuditRequestContext(nextRequest)) {
+      window.location.replace("/audit");
+      return;
+    }
+
     setRequest(nextRequest);
     setSnapshot(buildAuditSnapshot(nextRequest));
+    setIsReady(true);
   }, []);
+
+  if (!isReady) {
+    return (
+      <div className="flex min-h-screen flex-col">
+        <Header />
+        <main className="flex flex-1 items-center py-12">
+          <div className="shell max-w-3xl">
+            <div className="surface p-6 md:p-10">
+              <div className="flex items-center gap-4 text-muted-foreground">
+                <Loader2 className="h-5 w-5 animate-spin text-primary" />
+                <p className="text-sm">Loading your audit summary...</p>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -48,9 +80,8 @@ export default function ResultsPage() {
                 Initial audit summary for {snapshot.websiteDisplay}
               </h1>
               <p className="mt-5 text-base leading-7 text-muted-foreground md:text-lg">
-                Prepared from the account context you shared for {snapshot.budgetLabel.toLowerCase()},
-                with emphasis on {snapshot.goalLabel.toLowerCase()}. The walkthrough turns these findings
-                into a clear order of action.
+                Built around the account context you shared, with emphasis on {snapshot.goalLabel.toLowerCase()}.
+                The walkthrough turns these findings into a practical order of action.
               </p>
             </div>
 
@@ -74,7 +105,7 @@ export default function ResultsPage() {
               </div>
               <p className="mt-5 font-heading text-4xl text-white">{formatCurrency(snapshot.estimatedWaste)}</p>
               <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                Estimated monthly spend that likely deserves the first close review.
+                Estimated monthly spend worth reviewing first.
               </p>
             </div>
 
@@ -85,7 +116,7 @@ export default function ResultsPage() {
               </div>
               <p className="mt-5 font-heading text-4xl text-white">{snapshot.healthScore}/100</p>
               <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                Directional score based on the likely amount of structural cleanup, tracking repair, and efficiency work ahead.
+                Composite score for structure, tracking coverage, and query control.
               </p>
             </div>
 
@@ -96,7 +127,7 @@ export default function ResultsPage() {
               </div>
               <p className="mt-5 font-heading text-4xl text-white">{formatCurrency(snapshot.recoverableSpend)}</p>
               <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                Estimated spend that could be redirected once the main issues are confirmed and corrected.
+                Estimated spend that could be redirected after the main issues are corrected.
               </p>
             </div>
           </div>
@@ -171,7 +202,7 @@ export default function ResultsPage() {
               <div className="mt-6 space-y-4">
                 {[
                   "Confirmation of the highest-impact issues against campaign structure, conversion setup, and search intent.",
-                  "A clear read on which changes should happen first, which issues can wait, and where to avoid unnecessary churn.",
+                  "A clear order of action, including what to fix first and what can wait.",
                   `A reply ${snapshot.responseWindow} so the next-step recommendations move quickly.`,
                 ].map((item) => (
                   <div key={item} className="flex items-start gap-3">
@@ -184,7 +215,7 @@ export default function ResultsPage() {
               <div className="mt-8 rounded-[24px] border border-primary/20 bg-primary/8 p-5">
                 <p className="text-sm uppercase tracking-[0.18em] text-primary">Next step</p>
                 <h3 className="mt-2 font-heading text-xl text-white">
-                  Schedule the walkthrough for {snapshot.firstName === "there" ? "your team" : snapshot.firstName}.
+                  Schedule the walkthrough for {snapshot.firstName}.
                 </h3>
                 <p className="mt-3 text-sm leading-7 text-muted-foreground">
                   Move from the summary into a focused review of spend risk, tracking integrity, and the fixes worth prioritizing first.

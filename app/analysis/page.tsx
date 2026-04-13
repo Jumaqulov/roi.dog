@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { CheckCircle2, Loader2 } from "lucide-react";
 import { Header } from "@/components/layout/header";
 import { Progress } from "@/components/ui/progress";
-import { getGoalOption, readAuditRequest } from "@/lib/audit-flow";
+import { getGoalOption, hasAuditRequestContext, readAuditRequest } from "@/lib/audit-flow";
 
 const defaultSteps = [
   "Reviewing campaign structure",
@@ -17,18 +17,25 @@ const defaultSteps = [
 
 export default function AnalysisPage() {
   const router = useRouter();
+  const [isReady, setIsReady] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [progress, setProgress] = useState(8);
-  const [firstName, setFirstName] = useState("there");
+  const [firstName, setFirstName] = useState("");
   const [goalLine, setGoalLine] = useState("We are organizing the first findings for your review.");
   const [steps, setSteps] = useState(defaultSteps);
 
   useEffect(() => {
     const request = readAuditRequest();
+    if (!hasAuditRequestContext(request)) {
+      router.replace("/audit");
+      return;
+    }
+
     const goal = getGoalOption(request.goal);
 
-    setFirstName(request.firstName || "there");
+    setFirstName(request.firstName);
     setGoalLine(goal.headline);
+    setIsReady(true);
 
     if (goal.value === "improve-tracking") {
       setSteps([
@@ -49,9 +56,13 @@ export default function AnalysisPage() {
         "Prioritizing next-step recommendations",
       ]);
     }
-  }, []);
+  }, [router]);
 
   useEffect(() => {
+    if (!isReady) {
+      return;
+    }
+
     const totalTime = 6200;
     const stepTime = totalTime / defaultSteps.length;
 
@@ -82,7 +93,25 @@ export default function AnalysisPage() {
       window.clearInterval(stepTimer);
       window.clearTimeout(redirectTimer);
     };
-  }, [router, steps.length]);
+  }, [isReady, router, steps.length]);
+
+  if (!isReady) {
+    return (
+      <div className="flex min-h-screen flex-col">
+        <Header />
+        <main className="flex flex-1 items-center py-12">
+          <div className="shell max-w-3xl">
+            <div className="surface p-6 md:p-10">
+              <div className="flex items-center gap-4 text-muted-foreground">
+                <Loader2 className="h-5 w-5 animate-spin text-primary" />
+                <p className="text-sm">Loading your audit request...</p>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="flex min-h-screen flex-col">

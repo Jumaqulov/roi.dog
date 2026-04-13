@@ -61,7 +61,7 @@ export interface AuditSnapshot {
   }>;
 }
 
-export const AUDIT_STORAGE_KEY = "roi-dog.audit-request";
+export const AUDIT_STORAGE_KEY = "paidscope.audit-request";
 
 export const budgetOptions: BudgetOption[] = [
   { value: "under-5k", label: "Under $5k / month", monthlySpend: 3500 },
@@ -75,25 +75,25 @@ export const goalOptions: GoalOption[] = [
     value: "reduce-waste",
     label: "Reduce wasted spend",
     emphasis: "efficiency",
-    headline: "We prioritize query waste, loose match types, and budget drift.",
+    headline: "Reviewing query waste, loose match types, and budget drift.",
   },
   {
     value: "improve-tracking",
     label: "Tighten tracking and attribution",
     emphasis: "tracking",
-    headline: "We prioritize conversion coverage, attribution integrity, and reporting trust.",
+    headline: "Reviewing conversion coverage, attribution integrity, and reporting trust.",
   },
   {
     value: "scale-profitably",
     label: "Scale profitably",
     emphasis: "growth",
-    headline: "We prioritize campaign segmentation, budget concentration, and landing-page fit.",
+    headline: "Reviewing campaign segmentation, budget concentration, and landing-page fit.",
   },
   {
     value: "stabilize-performance",
     label: "Stabilize account performance",
     emphasis: "stability",
-    headline: "We prioritize consistency, bidding signals, and friction across the path to conversion.",
+    headline: "Reviewing consistency, bidding signals, and friction across the path to conversion.",
   },
 ];
 
@@ -107,6 +107,17 @@ export const defaultAuditRequest: AuditRequest = {
   concern: "",
   submittedAt: "",
 };
+
+export function hasAuditRequestContext(request: AuditRequest) {
+  return Boolean(
+    request.firstName.trim() &&
+      request.lastName.trim() &&
+      request.email.trim() &&
+      request.website.trim() &&
+      request.budget &&
+      request.goal,
+  );
+}
 
 const healthScoreByGoal: Record<GoalType, number> = {
   "reduce-waste": 58,
@@ -188,45 +199,45 @@ export function buildAuditSnapshot(request: AuditRequest): AuditSnapshot {
   const estimatedWaste = roundToNearest(monthlySpend * wasteRateByGoal[goal.value], 50);
   const recoverableSpend = roundToNearest(estimatedWaste * 0.7, 50);
   const websiteHost = getWebsiteHost(request.website);
-  const websiteDisplay = websiteHost || "your Google Ads account";
-  const firstName = request.firstName || "there";
+  const websiteDisplay = websiteHost;
+  const firstName = request.firstName;
 
   const priorities: AuditPriority[] = [
     {
       title: "Search waste",
       status: "Priority",
       score: goal.value === "reduce-waste" ? 34 : 28,
-      note: `Primary review area for ${budget.label.toLowerCase()} accounts when efficiency is under pressure.`,
+      note: `Usually the first place to tighten for ${budget.label.toLowerCase()} accounts under efficiency pressure.`,
     },
     {
       title: "Query intent matching",
       status: goal.value === "scale-profitably" ? "Priority" : "Watch",
       score: goal.value === "scale-profitably" ? 31 : 23,
-      note: "We check whether queries, match types, and ad-group intent are tight enough to support cleaner learning.",
+      note: "Checks whether search intent, match types, and ad-group separation are tight enough to guide bidding cleanly.",
     },
     {
       title: "Tracking integrity",
       status: goal.value === "improve-tracking" ? "Priority" : "Watch",
       score: goal.value === "improve-tracking" ? 39 : 24,
-      note: "Conversion actions, attribution handoff, and duplicate signal risk are reviewed before any scaling decisions.",
+      note: "Reviews conversion actions, attribution handoff, and duplicate signal risk before any scaling decisions.",
     },
     {
       title: "Campaign segmentation",
       status: goal.value === "scale-profitably" ? "Priority" : "Watch",
       score: goal.value === "scale-profitably" ? 33 : 25,
-      note: "We check whether budget, match types, and intent layers are separated cleanly enough to support optimization.",
+      note: "Checks whether budget, match types, and intent layers are separated well enough to support optimization.",
     },
     {
       title: "Landing-page alignment",
       status: "Watch",
       score: 22,
-      note: "We look for message mismatch, conversion friction, and weak continuity between keyword intent and page offer.",
+      note: "Reviews message match, conversion friction, and continuity between keyword intent and the landing-page offer.",
     },
     {
       title: "Budget concentration risk",
       status: goal.value === "stabilize-performance" ? "Priority" : "Stable",
       score: goal.value === "stabilize-performance" ? 30 : 18,
-      note: "Spend concentration is reviewed to identify over-reliance on a small set of campaigns, terms, or bidding patterns.",
+      note: "Looks for over-reliance on a small set of campaigns, terms, or bidding patterns.",
     },
   ];
 

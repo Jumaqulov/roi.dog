@@ -1,33 +1,28 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
-import { cn } from "@/lib/utils";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-body" });
-const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-display" });
-
 export const metadata: Metadata = {
-  metadataBase: new URL("https://roi.dog"),
+  metadataBase: new URL("https://paidscope.app"),
   title: {
-    default: "roi.dog | Google Ads Audit Review",
-    template: "%s | roi.dog",
+    default: "PaidScope | Google Ads Audit Review",
+    template: "%s | PaidScope",
   },
   description:
     "Premium Google Ads audit service focused on search waste, tracking integrity, and account structure.",
-  applicationName: "roi.dog",
+  applicationName: "PaidScope",
   openGraph: {
-    title: "roi.dog | Google Ads Audit Review",
+    title: "PaidScope | Google Ads Audit Review",
     description:
       "Request a premium Google Ads audit review focused on search waste, tracking integrity, and priority fixes.",
-    url: "https://roi.dog",
-    siteName: "roi.dog",
+    url: "https://paidscope.app",
+    siteName: "PaidScope",
     type: "website",
   },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={cn("dark", inter.variable, spaceGrotesk.variable)}>
+    <html lang="en" className="dark">
       <body className="bg-background text-foreground antialiased selection:bg-primary/30" suppressHydrationWarning>
         {children}
       </body>

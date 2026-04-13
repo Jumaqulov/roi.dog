@@ -1,13 +1,14 @@
 "use client";
 
-import { ChangeEvent, FormEvent, useState } from "react";
-import { ArrowRight, CalendarDays, CheckCircle2 } from "lucide-react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ArrowRight, CalendarDays, CheckCircle2, Loader2 } from "lucide-react";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { readAuditRequest } from "@/lib/audit-flow";
 
 type WalkthroughForm = {
   firstName: string;
@@ -27,7 +28,21 @@ const defaultForm: WalkthroughForm = {
 
 export default function ContactPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isReady, setIsReady] = useState(false);
   const [form, setForm] = useState<WalkthroughForm>(defaultForm);
+
+  useEffect(() => {
+    const request = readAuditRequest();
+
+    setForm({
+      firstName: request.firstName,
+      lastName: request.lastName,
+      email: request.email,
+      website: request.website,
+      message: request.concern,
+    });
+    setIsReady(true);
+  }, []);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
@@ -88,7 +103,14 @@ export default function ContactPage() {
             </div>
 
             <div className="surface p-6 md:p-8">
-              {isSubmitted ? (
+              {!isReady ? (
+                <div className="flex min-h-[520px] items-center justify-center">
+                  <div className="flex items-center gap-4 text-muted-foreground">
+                    <Loader2 className="h-5 w-5 animate-spin text-primary" />
+                    <p className="text-sm">Loading saved details...</p>
+                  </div>
+                </div>
+              ) : isSubmitted ? (
                 <div className="py-8 text-center md:py-14">
                   <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full border border-primary/20 bg-primary/10">
                     <CheckCircle2 className="h-8 w-8 text-primary" />

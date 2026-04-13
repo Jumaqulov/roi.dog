@@ -1,4 +1,4 @@
-# roi.dog
+# PaidScope
 
 Premium Google Ads audit site built with Next.js, TypeScript, and Tailwind CSS.
 

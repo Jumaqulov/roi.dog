@@ -48,6 +48,8 @@
 }
 
 :root {
+    --font-body: "Inter", "Segoe UI", "Helvetica Neue", Arial, ui-sans-serif, system-ui, sans-serif;
+    --font-display: "Avenir Next", "Inter", "Segoe UI", "Helvetica Neue", Arial, ui-sans-serif, system-ui, sans-serif;
     --background: oklch(0.16 0.01 260);
     --foreground: oklch(0.96 0.01 260);
     --card: oklch(0.2 0.015 260);
@@ -75,6 +77,8 @@
 }
 
 .dark {
+    --font-body: "Inter", "Segoe UI", "Helvetica Neue", Arial, ui-sans-serif, system-ui, sans-serif;
+    --font-display: "Avenir Next", "Inter", "Segoe UI", "Helvetica Neue", Arial, ui-sans-serif, system-ui, sans-serif;
     --background: oklch(0.16 0.01 260);
     --foreground: oklch(0.96 0.01 260);
     --card: oklch(0.2 0.015 260);

@@ -63,7 +63,7 @@ export default function LandingPage() {
                 Find the budget leaks before you scale the account.
               </h1>
               <p className="mt-6 max-w-xl text-lg leading-8 text-muted-foreground md:text-xl">
-                roi.dog is a premium Google Ads audit service for teams that need a sharper read on
+                PaidScope is a premium Google Ads audit service for teams that need a sharper read on
                 search waste, tracking integrity, and structural drag before the next spend decision.
               </p>
 

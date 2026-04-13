@@ -12,7 +12,7 @@ export function Footer() {
                 <Radar className="h-4 w-4" />
               </div>
               <div>
-                <span className="font-heading text-lg font-semibold tracking-tight text-white">roi.dog</span>
+                <span className="font-heading text-lg font-semibold tracking-tight text-white">PaidScope</span>
                 <p className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
                   Google Ads audit review
                 </p>
@@ -51,7 +51,7 @@ export function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col gap-2 border-t border-white/5 pt-6 text-xs text-muted-foreground md:flex-row md:items-center md:justify-between">
-          <p>{new Date().getFullYear()} roi.dog. All rights reserved.</p>
+          <p>{new Date().getFullYear()} PaidScope. All rights reserved.</p>
           <p>Independent Google Ads audit reviews for performance-focused teams.</p>
         </div>
       </div>
