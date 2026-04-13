@@ -52,7 +52,7 @@ export function Footer() {
 
         <div className="mt-12 flex flex-col gap-2 border-t border-white/5 pt-6 text-xs text-muted-foreground md:flex-row md:items-center md:justify-between">
           <p>{new Date().getFullYear()} roi.dog. All rights reserved.</p>
-          <p>Premium audit intake and walkthrough flow for Google Ads teams.</p>
+          <p>Independent Google Ads audit reviews for performance-focused teams.</p>
         </div>
       </div>
     </footer>

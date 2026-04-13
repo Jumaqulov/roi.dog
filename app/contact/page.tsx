@@ -70,8 +70,8 @@ export default function ContactPage() {
                   Schedule the audit walkthrough.
                 </h1>
                 <p className="mt-5 max-w-xl text-base leading-7 text-muted-foreground md:text-lg">
-                  This is the final step in the flow: confirm contact details, add any context that
-                  matters, and receive the next-step recommendations in a structured review conversation.
+                  Confirm the contact details, add any context that matters, and we will come back with
+                  the next-step recommendations for the review conversation.
                 </p>
               </div>
 
@@ -94,8 +94,8 @@ export default function ContactPage() {
               <div className="surface p-6">
                 <p className="text-sm uppercase tracking-[0.18em] text-muted-foreground">Expectation setting</p>
                 <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                  We do not promise instant fixes or implied platform access. This step simply moves the
-                  audit from intake into a real conversation about priorities and next actions.
+                  Expect a concise reply, a proposed next step, and a review built around the issues most
+                  likely to matter first.
                 </p>
               </div>
             </div>
@@ -109,7 +109,7 @@ export default function ContactPage() {
                   <h2 className="mt-6 font-heading text-3xl text-white">Walkthrough request received</h2>
                   <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-muted-foreground">
                     We will reply within one business day to confirm the best next window for {previewName}
-                    {" "}and share how the audit review will be structured.
+                    {" "}and outline the priority areas to review together.
                   </p>
                   <Button
                     variant="outline"
@@ -122,7 +122,7 @@ export default function ContactPage() {
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div className="border-b border-white/8 pb-6">
-                    <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Final step</p>
+                    <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Walkthrough request</p>
                     <h2 className="mt-2 font-heading text-2xl text-white md:text-3xl">Request full audit walkthrough</h2>
                   </div>
 

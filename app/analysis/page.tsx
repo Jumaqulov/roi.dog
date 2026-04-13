@@ -20,7 +20,7 @@ export default function AnalysisPage() {
   const [currentStep, setCurrentStep] = useState(0);
   const [progress, setProgress] = useState(8);
   const [firstName, setFirstName] = useState("there");
-  const [goalLine, setGoalLine] = useState("We are assembling the audit brief for your review.");
+  const [goalLine, setGoalLine] = useState("We are organizing the first findings for your review.");
   const [steps, setSteps] = useState(defaultSteps);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export default function AnalysisPage() {
       setSteps([
         "Reviewing campaign structure",
         "Checking conversion coverage",
-        "Validating attribution handoff",
+        "Reviewing attribution handoff",
         "Assessing landing-page alignment",
         "Prioritizing next-step recommendations",
       ]);
@@ -92,13 +92,13 @@ export default function AnalysisPage() {
           <div className="surface overflow-hidden p-6 md:p-10">
             <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
               <div className="max-w-xl">
-                <span className="eyebrow mb-5">Preparing findings</span>
-                <h1 className="font-heading text-3xl font-semibold tracking-tight text-white md:text-5xl">
-                  {firstName}, we are assembling your audit brief.
-                </h1>
+              <span className="eyebrow mb-5">Preparing findings</span>
+              <h1 className="font-heading text-3xl font-semibold tracking-tight text-white md:text-5xl">
+                  {firstName}, we are preparing your initial findings.
+              </h1>
                 <p className="mt-5 text-base leading-7 text-muted-foreground md:text-lg">{goalLine}</p>
                 <p className="mt-3 text-sm text-muted-foreground">
-                  This screen takes a few seconds and leads directly into the initial audit snapshot.
+                  Preparing your audit summary now.
                 </p>
               </div>
 
@@ -109,7 +109,7 @@ export default function AnalysisPage() {
 
             <div className="mt-8">
               <div className="mb-3 flex items-center justify-between text-sm">
-                <span className="text-white">Progress</span>
+                <span className="text-white">Review progress</span>
                 <span className="text-muted-foreground">{Math.min(progress, 100)}%</span>
               </div>
               <Progress value={Math.min(progress, 100)} className="h-2" />

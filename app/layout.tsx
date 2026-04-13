@@ -13,12 +13,12 @@ export const metadata: Metadata = {
     template: "%s | roi.dog",
   },
   description:
-    "Premium Google Ads audit intake and review flow focused on search waste, tracking integrity, and account structure.",
+    "Premium Google Ads audit service focused on search waste, tracking integrity, and account structure.",
   applicationName: "roi.dog",
   openGraph: {
     title: "roi.dog | Google Ads Audit Review",
     description:
-      "Request a premium Google Ads audit review and receive a structured walkthrough of search waste, tracking integrity, and priority fixes.",
+      "Request a premium Google Ads audit review focused on search waste, tracking integrity, and priority fixes.",
     url: "https://roi.dog",
     siteName: "roi.dog",
     type: "website",

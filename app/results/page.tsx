@@ -45,11 +45,12 @@ export default function ResultsPage() {
             <div className="max-w-3xl">
               <span className="eyebrow mb-5">Initial audit snapshot</span>
               <h1 className="font-heading text-4xl font-semibold tracking-tight text-white md:text-6xl md:leading-[1.02]">
-                Priority map for {snapshot.websiteDisplay}
+                Initial audit summary for {snapshot.websiteDisplay}
               </h1>
               <p className="mt-5 text-base leading-7 text-muted-foreground md:text-lg">
-                Built from the intake for {snapshot.budgetLabel.toLowerCase()} focused on {snapshot.goalLabel.toLowerCase()}.
-                The full walkthrough validates these areas inside the account and turns them into an order of operations.
+                Prepared from the account context you shared for {snapshot.budgetLabel.toLowerCase()},
+                with emphasis on {snapshot.goalLabel.toLowerCase()}. The walkthrough turns these findings
+                into a clear order of action.
               </p>
             </div>
 
@@ -69,33 +70,33 @@ export default function ResultsPage() {
             <div className="surface p-6">
               <div className="flex items-center gap-3">
                 <CircleDollarSign className="h-5 w-5 text-primary" />
-                <p className="text-sm uppercase tracking-[0.18em] text-muted-foreground">Potential leakage</p>
+                <p className="text-sm uppercase tracking-[0.18em] text-muted-foreground">Spend at risk</p>
               </div>
               <p className="mt-5 font-heading text-4xl text-white">{formatCurrency(snapshot.estimatedWaste)}</p>
               <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                Estimated monthly spend worth validating first based on the intake profile and the review focus.
+                Estimated monthly spend that likely deserves the first close review.
               </p>
             </div>
 
             <div className="surface p-6">
               <div className="flex items-center gap-3">
                 <ShieldAlert className="h-5 w-5 text-primary" />
-                <p className="text-sm uppercase tracking-[0.18em] text-muted-foreground">Audit health score</p>
+                <p className="text-sm uppercase tracking-[0.18em] text-muted-foreground">Account audit score</p>
               </div>
               <p className="mt-5 font-heading text-4xl text-white">{snapshot.healthScore}/100</p>
               <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                A directional read on how much structural and tracking cleanup is likely to be required before confident optimization.
+                Directional score based on the likely amount of structural cleanup, tracking repair, and efficiency work ahead.
               </p>
             </div>
 
             <div className="surface p-6">
               <div className="flex items-center gap-3">
                 <Target className="h-5 w-5 text-primary" />
-                <p className="text-sm uppercase tracking-[0.18em] text-muted-foreground">Recoverable focus</p>
+                <p className="text-sm uppercase tracking-[0.18em] text-muted-foreground">Recoverable spend</p>
               </div>
               <p className="mt-5 font-heading text-4xl text-white">{formatCurrency(snapshot.recoverableSpend)}</p>
               <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                Estimated spend that could likely be redirected once the first-priority issues are confirmed and cleaned up.
+                Estimated spend that could be redirected once the main issues are confirmed and corrected.
               </p>
             </div>
           </div>
@@ -104,8 +105,8 @@ export default function ResultsPage() {
             <div className="surface p-6 md:p-8">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-sm uppercase tracking-[0.18em] text-muted-foreground">Focused spend vs leakage</p>
-                  <h2 className="mt-2 font-heading text-2xl text-white">How the review frames the account</h2>
+                  <p className="text-sm uppercase tracking-[0.18em] text-muted-foreground">Spend distribution</p>
+                  <h2 className="mt-2 font-heading text-2xl text-white">Estimated allocation by review area</h2>
                 </div>
                 <LineChart className="h-5 w-5 text-primary" />
               </div>
@@ -114,8 +115,8 @@ export default function ResultsPage() {
             </div>
 
             <div className="surface p-6 md:p-8">
-              <p className="text-sm uppercase tracking-[0.18em] text-muted-foreground">Priority order</p>
-              <h2 className="mt-2 font-heading text-2xl text-white">Where the walkthrough starts</h2>
+              <p className="text-sm uppercase tracking-[0.18em] text-muted-foreground">Priority review areas</p>
+              <h2 className="mt-2 font-heading text-2xl text-white">What deserves attention first</h2>
 
               <div className="mt-8 space-y-4">
                 {snapshot.priorities.map((priority) => (
@@ -140,7 +141,7 @@ export default function ResultsPage() {
             <div className="surface p-6">
               <div className="flex items-center gap-3">
                 <AlertTriangle className="h-5 w-5 text-primary" />
-                <h2 className="font-heading text-2xl text-white">Intake notes</h2>
+                <h2 className="font-heading text-2xl text-white">Account context</h2>
               </div>
               <div className="mt-5 space-y-4 text-sm leading-7">
                 <div className="rounded-2xl border border-white/8 bg-white/[0.03] p-4">
@@ -165,13 +166,13 @@ export default function ResultsPage() {
             </div>
 
             <div className="surface p-6 md:p-8">
-              <p className="text-sm uppercase tracking-[0.18em] text-muted-foreground">Walkthrough outcome</p>
-              <h2 className="mt-2 font-heading text-2xl text-white">What the full review adds</h2>
+              <p className="text-sm uppercase tracking-[0.18em] text-muted-foreground">Audit walkthrough</p>
+              <h2 className="mt-2 font-heading text-2xl text-white">What the walkthrough covers</h2>
               <div className="mt-6 space-y-4">
                 {[
-                  "Validation inside the live account so the priority list is confirmed against real campaign and conversion setup.",
-                  "A tighter read on which changes should happen first, which issues can wait, and where not to overreact.",
-                  `A reply from our side ${snapshot.responseWindow} so the next-step recommendations move quickly.`,
+                  "Confirmation of the highest-impact issues against campaign structure, conversion setup, and search intent.",
+                  "A clear read on which changes should happen first, which issues can wait, and where to avoid unnecessary churn.",
+                  `A reply ${snapshot.responseWindow} so the next-step recommendations move quickly.`,
                 ].map((item) => (
                   <div key={item} className="flex items-start gap-3">
                     <CheckCircle2 className="mt-0.5 h-4 w-4 text-primary" />
@@ -186,7 +187,7 @@ export default function ResultsPage() {
                   Schedule the walkthrough for {snapshot.firstName === "there" ? "your team" : snapshot.firstName}.
                 </h3>
                 <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                  Move from a directional snapshot into a guided review of waste, tracking integrity, and the fixes worth prioritizing first.
+                  Move from the summary into a focused review of spend risk, tracking integrity, and the fixes worth prioritizing first.
                 </p>
                 <Link
                   href="/contact"
@@ -195,7 +196,7 @@ export default function ResultsPage() {
                     "mt-5 h-12 rounded-full bg-primary px-6 text-sm font-medium text-primary-foreground hover:bg-primary/90",
                   )}
                 >
-                  Continue to walkthrough request
+                  Request audit walkthrough
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </div>

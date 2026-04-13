@@ -1,6 +1,6 @@
 # roi.dog
 
-Premium Google Ads audit intake and walkthrough flow built with Next.js, TypeScript, and Tailwind CSS.
+Premium Google Ads audit site built with Next.js, TypeScript, and Tailwind CSS.
 
 ## What the project includes
 
@@ -8,9 +8,9 @@ Premium Google Ads audit intake and walkthrough flow built with Next.js, TypeScr
 - `/audit` premium intake form for the review request
 - `/analysis` guided preparation state before the snapshot
 - `/results` intake-aware audit snapshot
-- `/contact` final walkthrough request step
+- `/contact` audit walkthrough request page
 
-The flow is client-side and uses session storage so the intake details carry across the multi-page experience.
+Session storage carries the submitted account details across the multi-page experience.
 
 ## Development
 

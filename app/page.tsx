@@ -177,7 +177,7 @@ export default function LandingPage() {
               <span className="eyebrow">Audit scope</span>
               <h2 className="section-title mt-5">A tighter audit scope than a generic account health check.</h2>
               <p className="section-copy mt-5">
-                The review is framed around the decisions that usually matter most: where spend is being
+                The audit stays focused on the decisions that usually matter most: where spend is being
                 diluted, whether tracking can be trusted, and whether the account structure supports better
                 control over intent and budget.
               </p>
@@ -209,10 +209,10 @@ export default function LandingPage() {
           <div className="shell grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
             <div className="max-w-xl">
               <span className="eyebrow">Process</span>
-              <h2 className="section-title mt-5">One coherent flow from intake to walkthrough.</h2>
+              <h2 className="section-title mt-5">A straightforward review process.</h2>
               <p className="section-copy mt-5">
-                The site now follows a single service narrative: request the review, receive an initial
-                audit summary, then schedule a focused walkthrough of the account priorities.
+                Share the account context, receive an initial audit summary, and continue into a focused
+                walkthrough built around the highest-priority review areas.
               </p>
             </div>
 
@@ -221,12 +221,12 @@ export default function LandingPage() {
                 {
                   step: "01",
                   title: "Request the audit",
-                  copy: "Share the account context, website, budget band, and primary goal so the review starts with the right framing.",
+                  copy: "Share the account context, website, budget band, and primary goal so the review starts in the right place.",
                 },
                 {
                   step: "02",
                   title: "We prepare the initial summary",
-                  copy: "The intake is translated into a structured audit brief with the review areas most likely to surface waste, tracking issues, or structural drag.",
+                  copy: "We organize the first findings around waste, tracking coverage, structural control, and landing-page alignment.",
                 },
                 {
                   step: "03",
@@ -276,7 +276,7 @@ export default function LandingPage() {
               <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
                 <div className="max-w-2xl">
                   <span className="eyebrow">Next step</span>
-                  <h2 className="section-title mt-5">Request the audit review and we will prepare the brief.</h2>
+                  <h2 className="section-title mt-5">Request the audit review and we will prepare the summary.</h2>
                   <p className="mt-5 max-w-xl text-base leading-7 text-muted-foreground md:text-lg">
                     Start with a focused intake, receive an initial audit snapshot, and move into a
                     walkthrough built around the account context you shared.

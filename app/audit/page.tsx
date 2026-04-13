@@ -62,8 +62,8 @@ export default function AuditFormPage() {
                   Start the Google Ads audit review.
                 </h1>
                 <p className="mt-5 max-w-xl text-base leading-7 text-muted-foreground md:text-lg">
-                  Share the account context and we will prepare a structured audit summary for the
-                  walkthrough. This step is framed as intake, not a platform connection flow.
+                  Share the account context and we will prepare an initial audit summary ahead of the
+                  review conversation.
                 </p>
               </div>
 
@@ -71,9 +71,9 @@ export default function AuditFormPage() {
                 <h2 className="font-heading text-xl text-white">What happens next</h2>
                 <div className="mt-5 space-y-4">
                   {[
-                    "We use the intake to set the first review priorities.",
-                    "The summary is framed around waste, tracking, structure, and landing-page fit.",
-                    "You receive a walkthrough-ready snapshot before the next conversation.",
+                    "The review starts with the areas most likely to affect efficiency, tracking, and structure.",
+                    "You receive a concise audit summary before the walkthrough.",
+                    "The discussion stays focused on the issues most likely to deserve action first.",
                   ].map((item) => (
                     <div key={item} className="flex items-start gap-3">
                       <CheckCircle2 className="mt-0.5 h-4 w-4 text-primary" />
@@ -89,8 +89,8 @@ export default function AuditFormPage() {
                   <div>
                     <h2 className="font-heading text-xl text-white">Review assurances</h2>
                     <p className="mt-2 text-sm leading-7 text-muted-foreground">
-                      The intake is positioned as a read-only review request. No account changes are
-                      implied, and no platform disruption is suggested anywhere in the flow.
+                      This review is handled as a read-only request. Your account remains untouched unless
+                      you decide to move forward with changes later.
                     </p>
                   </div>
                 </div>
@@ -208,8 +208,7 @@ export default function AuditFormPage() {
                 </div>
 
                 <div className="rounded-2xl border border-white/8 bg-[#0d1218] px-4 py-3 text-sm text-muted-foreground">
-                  Read-only review request. We use these details to prepare the audit summary and
-                  walkthrough agenda.
+                  These details help us tailor the audit summary and the priorities we cover first.
                 </div>
 
                 <Button
