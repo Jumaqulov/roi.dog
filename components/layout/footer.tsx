@@ -1,46 +1,58 @@
 import Link from "next/link";
-import { Activity } from "lucide-react";
+import { Radar } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/5 bg-background py-12 md:py-16">
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="grid gap-8 md:grid-cols-4">
-          <div className="md:col-span-2">
-            <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/20 text-primary">
-                <Activity className="h-5 w-5" />
+    <footer className="border-t border-white/5 py-12 md:py-16">
+      <div className="shell">
+        <div className="grid gap-10 md:grid-cols-[1.2fr_0.8fr_0.8fr]">
+          <div className="space-y-5">
+            <Link href="/" className="flex items-center gap-2">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-primary">
+                <Radar className="h-4 w-4" />
               </div>
-              <span className="font-heading text-lg font-bold tracking-tight text-white">
-                AuditPro
-              </span>
+              <div>
+                <span className="font-heading text-lg font-semibold tracking-tight text-white">roi.dog</span>
+                <p className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+                  Google Ads audit review
+                </p>
+              </div>
             </Link>
-            <p className="text-sm text-muted-foreground max-w-xs">
-              Stop wasting ad spend. We analyze your Google Ads account to find hidden leaks and scale your ROI.
+
+            <p className="max-w-sm text-sm leading-6 text-muted-foreground">
+              Structured Google Ads audit reviews for teams that need a sharper read on search waste,
+              tracking integrity, and account structure before making bigger spend decisions.
             </p>
           </div>
+
           <div>
-            <h3 className="font-heading font-semibold text-white mb-4">Service</h3>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><Link href="#" className="hover:text-primary transition-colors">Free Audit</Link></li>
-              <li><Link href="#" className="hover:text-primary transition-colors">Account Management</Link></li>
-              <li><Link href="#" className="hover:text-primary transition-colors">Conversion Tracking</Link></li>
-              <li><Link href="#" className="hover:text-primary transition-colors">Case Studies</Link></li>
+            <h3 className="mb-4 font-heading text-sm font-semibold uppercase tracking-[0.2em] text-white/80">
+              Navigation
+            </h3>
+            <ul className="space-y-3 text-sm text-muted-foreground">
+              <li><Link href="/#scope" className="hover:text-white">Audit scope</Link></li>
+              <li><Link href="/#process" className="hover:text-white">How it works</Link></li>
+              <li><Link href="/audit" className="hover:text-white">Request audit</Link></li>
+              <li><Link href="/contact" className="hover:text-white">Schedule walkthrough</Link></li>
             </ul>
           </div>
+
           <div>
-            <h3 className="font-heading font-semibold text-white mb-4">Company</h3>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><Link href="#" className="hover:text-primary transition-colors">About Us</Link></li>
-              <li><Link href="#" className="hover:text-primary transition-colors">Contact</Link></li>
-              <li><Link href="#" className="hover:text-primary transition-colors">Privacy Policy</Link></li>
-              <li><Link href="#" className="hover:text-primary transition-colors">Terms of Service</Link></li>
+            <h3 className="mb-4 font-heading text-sm font-semibold uppercase tracking-[0.2em] text-white/80">
+              Assurances
+            </h3>
+            <ul className="space-y-3 text-sm text-muted-foreground">
+              <li>Read-only review request</li>
+              <li>No account changes without approval</li>
+              <li>Reply window within one business day</li>
+              <li>Not affiliated with Google LLC</li>
             </ul>
           </div>
         </div>
-        <div className="mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
-          <p>© {new Date().getFullYear()} AuditPro. All rights reserved.</p>
-          <p>Not affiliated with Google LLC.</p>
+
+        <div className="mt-12 flex flex-col gap-2 border-t border-white/5 pt-6 text-xs text-muted-foreground md:flex-row md:items-center md:justify-between">
+          <p>{new Date().getFullYear()} roi.dog. All rights reserved.</p>
+          <p>Premium audit intake and walkthrough flow for Google Ads teams.</p>
         </div>
       </div>
     </footer>

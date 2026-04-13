@@ -2,110 +2,140 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { CheckCircle2, Loader2 } from "lucide-react";
 import { Header } from "@/components/layout/header";
 import { Progress } from "@/components/ui/progress";
-import { CheckCircle2, Loader2 } from "lucide-react";
+import { getGoalOption, readAuditRequest } from "@/lib/audit-flow";
 
-const steps = [
-  "Connecting to Google Ads API...",
-  "Downloading campaign structures...",
-  "Analyzing search term reports...",
-  "Checking conversion tracking setup...",
-  "Calculating wasted spend...",
-  "Generating recommendations...",
-  "Finalizing report..."
+const defaultSteps = [
+  "Reviewing campaign structure",
+  "Checking conversion coverage",
+  "Evaluating search query efficiency",
+  "Assessing landing-page alignment",
+  "Prioritizing next-step recommendations",
 ];
 
 export default function AnalysisPage() {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(0);
-  const [progress, setProgress] = useState(0);
+  const [progress, setProgress] = useState(8);
+  const [firstName, setFirstName] = useState("there");
+  const [goalLine, setGoalLine] = useState("We are assembling the audit brief for your review.");
+  const [steps, setSteps] = useState(defaultSteps);
 
   useEffect(() => {
-    const totalTime = 6000; // 6 seconds total
-    const stepTime = totalTime / steps.length;
-    
-    const interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          return 100;
-        }
-        return prev + (100 / (totalTime / 100)); // Update every 100ms
-      });
-    }, 100);
+    const request = readAuditRequest();
+    const goal = getGoalOption(request.goal);
 
-    const stepInterval = setInterval(() => {
-      setCurrentStep((prev) => {
-        if (prev >= steps.length - 1) {
-          clearInterval(stepInterval);
-          return prev;
+    setFirstName(request.firstName || "there");
+    setGoalLine(goal.headline);
+
+    if (goal.value === "improve-tracking") {
+      setSteps([
+        "Reviewing campaign structure",
+        "Checking conversion coverage",
+        "Validating attribution handoff",
+        "Assessing landing-page alignment",
+        "Prioritizing next-step recommendations",
+      ]);
+    }
+
+    if (goal.value === "scale-profitably") {
+      setSteps([
+        "Reviewing campaign structure",
+        "Checking segmentation depth",
+        "Evaluating search query efficiency",
+        "Assessing landing-page alignment",
+        "Prioritizing next-step recommendations",
+      ]);
+    }
+  }, []);
+
+  useEffect(() => {
+    const totalTime = 6200;
+    const stepTime = totalTime / defaultSteps.length;
+
+    const progressTimer = window.setInterval(() => {
+      setProgress((current) => {
+        const next = current + 3;
+        return next >= 100 ? 100 : next;
+      });
+    }, 180);
+
+    const stepTimer = window.setInterval(() => {
+      setCurrentStep((current) => {
+        if (current >= steps.length - 1) {
+          window.clearInterval(stepTimer);
+          return current;
         }
-        return prev + 1;
+
+        return current + 1;
       });
     }, stepTime);
 
-    const redirectTimer = setTimeout(() => {
+    const redirectTimer = window.setTimeout(() => {
       router.push("/results");
-    }, totalTime + 500);
+    }, totalTime + 450);
 
     return () => {
-      clearInterval(interval);
-      clearInterval(stepInterval);
-      clearTimeout(redirectTimer);
+      window.clearInterval(progressTimer);
+      window.clearInterval(stepTimer);
+      window.clearTimeout(redirectTimer);
     };
-  }, [router]);
+  }, [router, steps.length]);
 
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className="flex min-h-screen flex-col">
       <Header />
-      <main className="flex-1 flex items-center justify-center py-12">
-        <div className="container max-w-lg mx-auto px-4 text-center">
-          <div className="mb-8 flex justify-center">
-            <div className="relative flex h-24 w-24 items-center justify-center rounded-full bg-primary/10">
-              <div className="absolute inset-0 rounded-full border-4 border-primary/20 border-t-primary animate-spin" />
-              <Loader2 className="h-10 w-10 text-primary animate-pulse" />
-            </div>
-          </div>
-          
-          <h1 className="font-heading text-2xl md:text-3xl font-bold text-white mb-2">
-            Analyzing your account
-          </h1>
-          <p className="text-muted-foreground mb-10">
-            Please don&apos;t close this window. This usually takes about 60 seconds.
-          </p>
-
-          <div className="space-y-8 text-left">
-            <div className="space-y-2">
-              <div className="flex justify-between text-sm font-medium">
-                <span className="text-white">{Math.round(progress)}% Complete</span>
+      <main className="flex flex-1 items-center py-12">
+        <div className="shell max-w-3xl">
+          <div className="surface overflow-hidden p-6 md:p-10">
+            <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
+              <div className="max-w-xl">
+                <span className="eyebrow mb-5">Preparing findings</span>
+                <h1 className="font-heading text-3xl font-semibold tracking-tight text-white md:text-5xl">
+                  {firstName}, we are assembling your audit brief.
+                </h1>
+                <p className="mt-5 text-base leading-7 text-muted-foreground md:text-lg">{goalLine}</p>
+                <p className="mt-3 text-sm text-muted-foreground">
+                  This screen takes a few seconds and leads directly into the initial audit snapshot.
+                </p>
               </div>
-              <Progress value={progress} className="h-2" />
+
+              <div className="flex h-20 w-20 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-primary">
+                <Loader2 className="h-8 w-8 animate-spin" />
+              </div>
             </div>
 
-            <div className="space-y-4 bg-card border border-white/5 rounded-xl p-6">
+            <div className="mt-8">
+              <div className="mb-3 flex items-center justify-between text-sm">
+                <span className="text-white">Progress</span>
+                <span className="text-muted-foreground">{Math.min(progress, 100)}%</span>
+              </div>
+              <Progress value={Math.min(progress, 100)} className="h-2" />
+            </div>
+
+            <div className="mt-8 grid gap-3">
               {steps.map((step, index) => {
                 const isCompleted = index < currentStep;
                 const isActive = index === currentStep;
-                const isPending = index > currentStep;
 
                 return (
-                  <div 
-                    key={index} 
-                    className={`flex items-center gap-3 text-sm transition-all duration-300 ${
-                      isCompleted ? "text-white" : 
-                      isActive ? "text-primary font-medium" : 
-                      "text-muted-foreground opacity-50"
-                    }`}
+                  <div
+                    key={step}
+                    className="flex items-center gap-3 rounded-2xl border border-white/8 bg-white/[0.03] px-4 py-4 text-sm"
                   >
                     {isCompleted ? (
                       <CheckCircle2 className="h-5 w-5 text-primary" />
                     ) : isActive ? (
-                      <Loader2 className="h-5 w-5 animate-spin" />
+                      <Loader2 className="h-5 w-5 animate-spin text-primary" />
                     ) : (
-                      <div className="h-5 w-5 rounded-full border border-current opacity-50" />
+                      <div className="h-5 w-5 rounded-full border border-white/20" />
                     )}
-                    <span>{step}</span>
+
+                    <span className={isActive || isCompleted ? "text-white" : "text-muted-foreground"}>
+                      {step}
+                    </span>
                   </div>
                 );
               })}

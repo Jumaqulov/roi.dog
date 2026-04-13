@@ -1,40 +1,35 @@
-# Google Ads Audit Prototype
+# roi.dog
 
-A polished, multi-page prototype for a Google Ads audit service, built as a test task submission.
+Premium Google Ads audit intake and walkthrough flow built with Next.js, TypeScript, and Tailwind CSS.
 
-## Tech Stack
-- **Framework:** Next.js 15 (App Router)
-- **Language:** TypeScript
-- **Styling:** Tailwind CSS v4
-- **UI Components:** shadcn/ui
-- **Icons:** lucide-react
-- **Charts:** recharts
+## What the project includes
 
-## Routes & User Flow
+- `/` refined landing page for the audit service
+- `/audit` premium intake form for the review request
+- `/analysis` guided preparation state before the snapshot
+- `/results` intake-aware audit snapshot
+- `/contact` final walkthrough request step
 
-1. **`/` (Landing Page)**: The main entry point. Features a strong hero section, trust logos, problem/solution blocks, and a clear explanation of the audit process.
-2. **`/audit` (Audit Form)**: A mock intake form where users "connect" their Google Ads account and provide basic details (budget, goals).
-3. **`/analysis` (Analysis/Loading)**: A simulated progress page that creates anticipation. It automatically redirects to the results page after ~6 seconds.
-4. **`/results` (Results Preview)**: A dashboard-style page showing a teaser of the audit results, including estimated wasted spend, health score, and a chart comparing productive vs. wasted spend.
-5. **`/contact` (Final CTA)**: The final conversion page where users can request the full 24-page report and book a strategy call.
+The flow is client-side and uses session storage so the intake details carry across the multi-page experience.
 
-## Design Decisions
+## Development
 
-- **Aesthetic**: Dark, modern, and premium. Uses a deep zinc/black background with electric blue/cyan neon accents to feel like a high-end SaaS or performance marketing tool.
-- **Typography**: `Space Grotesk` for headings (technical, modern) and `Inter` for body copy (highly legible).
-- **Simulated Flow**: The prototype does not require a backend. State and routing are handled entirely on the client side to provide a seamless, believable user experience.
-- **Conversion-Focused**: Clear CTAs, trust signals (logos, read-only access badges), and progressive disclosure of information.
+Install dependencies:
 
-## Setup & Run
+```bash
+npm install
+```
 
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
+Run the project locally:
 
-2. Run the development server:
-   ```bash
-   npm run dev
-   ```
+```bash
+npm run dev
+```
 
-3. Open [http://localhost:3000](http://localhost:3000) in your browser.
+Useful checks:
+
+```bash
+npm run lint
+npm run typecheck
+npm run build
+```
