@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { ArrowRight, CalendarDays, CheckCircle2 } from "lucide-react";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { defaultAuditRequest, readAuditRequest } from "@/lib/audit-flow";
 
 type WalkthroughForm = {
   firstName: string;
@@ -30,18 +29,6 @@ export default function ContactPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [form, setForm] = useState<WalkthroughForm>(defaultForm);
 
-  useEffect(() => {
-    const request = readAuditRequest();
-
-    setForm({
-      firstName: request.firstName,
-      lastName: request.lastName,
-      email: request.email,
-      website: request.website,
-      message: request.concern,
-    });
-  }, []);
-
   const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
     setForm((current) => ({ ...current, [name]: value }));
@@ -52,7 +39,7 @@ export default function ContactPage() {
     setIsSubmitted(true);
   };
 
-  const previewName = form.firstName || defaultAuditRequest.firstName || "your team";
+  const previewName = form.firstName || "your team";
 
   return (
     <div className="flex min-h-screen flex-col">
