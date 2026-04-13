@@ -26,6 +26,8 @@ Run the project locally:
 npm run dev
 ```
 
+The app runs on `http://localhost:4000`.
+
 Useful checks:
 
 ```bash
